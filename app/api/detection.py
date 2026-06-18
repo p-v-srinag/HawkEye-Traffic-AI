@@ -1,11 +1,21 @@
 from fastapi import APIRouter
 
+from app.services.detection_service import (
+    process_detection
+)
+
 router = APIRouter()
 
 
-@router.get("/health")
-def health():
+@router.get("/detect")
+def detect():
 
-    return {
-        "status": "ok"
-    }
+    image_path = (
+        "data/uploads/image.png"
+    )
+
+    result = process_detection(
+        image_path
+    )
+
+    return result

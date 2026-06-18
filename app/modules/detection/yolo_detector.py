@@ -11,6 +11,31 @@ class YOLODetector:
 
     def detect(self, image_path):
 
-        results = self.model(image_path)
+        results = self.model(
+            image_path
+        )
 
-        return results
+        detections = []
+
+        for r in results:
+
+            names = r.names
+
+            for box in r.boxes:
+
+                cls_id = int(box.cls[0])
+
+                detections.append(
+                    {
+                        "class_name":
+                        names[cls_id],
+
+                        "confidence":
+                        float(box.conf[0]),
+
+                        "bbox":
+                        box.xyxy[0].tolist()
+                    }
+                )
+
+        return detections

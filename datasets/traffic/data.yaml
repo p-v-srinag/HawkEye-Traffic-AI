@@ -1,0 +1,14 @@
+path: datasets/traffic
+
+train: images/train
+val: images/val
+
+names:
+
+  0: motorcycle
+  1: person
+  2: helmet
+  3: license_plate
+  4: traffic_light_red
+  5: traffic_light_green
+  6: traffic_light_yellow
