@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  api:
+    build: .
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+    ports:
+      - "8000:8000"
+    environment:
+      # In Docker, 'localhost' is replaced by the service name 'mongodb' or 'redis'
+      - MONGO_URI=mongodb://mongodb:27017
+      - DB_NAME=hawkeye
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - ./data:/app/data
+    depends_on:
+      - mongodb
+      - redis
+
+  worker:
+    build: .
+    # Linux uses default prefork, no gevent required
+    command: celery -A app.tasks.celery_app worker --loglevel=info
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017
+      - DB_NAME=hawkeye
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - ./data:/app/data
+    depends_on:
+      - redis
+      - mongodb
+
+  dashboard:
+    build: .
+    command: streamlit run dashboard/app.py --server.address=0.0.0.0
+    ports:
+      - "8501:8501"
+    environment:
+      - API_URL=http://api:8000
+    depends_on:
+      - api
+
+volumes:
+  mongo_data:
