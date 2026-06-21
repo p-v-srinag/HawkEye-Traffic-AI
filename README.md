@@ -1,6 +1,6 @@
 # 🚔 HawkEye Traffic AI
 
-![HawkEye Banner](https://img.shields.io/badge/Gridlock%20Hackathon%202.0-Winner%20Candidate-blue?style=for-the-badge)
+![Gridlock Hackathon](https://img.shields.io/badge/Gridlock%20Hackathon%202.0-Submission-blue?style=for-the-badge)
 ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
 ![Ultralytics YOLO](https://img.shields.io/badge/YOLO11-Ultralytics-green?style=for-the-badge)
 ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb)
@@ -76,3 +76,5 @@ HawkEye is built for enterprise-grade scalability, completely containerized with
 
 ---
 
+## 📝 License
+Created exclusively for the Flipkart Gridlock Hackathon 2.0.
