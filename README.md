@@ -5,7 +5,7 @@
 ![Ultralytics YOLO](https://img.shields.io/badge/YOLO11-Ultralytics-green?style=for-the-badge)
 ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb)
 
-An advanced, highly scalable Computer Vision pipeline developed for the **Gridlock Hackathon 2.0** by Flipkart and Bengaluru Traffic Police. 
+An advanced, highly scalable Computer Vision pipeline developed for the **Gridlock Hackathon 2.0** by Flipkart and Bengaluru Traffic Police.
 
 **HawkEye Traffic AI** completely rethinks automated traffic enforcement. Rather than relying on simple frame-by-frame object detection which is prone to false positives (e.g. fining a child passenger for triple riding, or fining a stationary vehicle for wrong-side driving), HawkEye uses an asynchronous microservice architecture, temporal **Evidence Burst tracking**, and a contextual **Smart Enforcement Validation Engine (SEVE)** to guarantee extremely high-precision traffic violations.
 
@@ -25,13 +25,13 @@ HawkEye doesn't just look at single images. It accepts bursts of sequential fram
 - **Illegal Parking**: By ensuring a vehicle's tracking centroid remains stationary for an extended period inside a defined No-Parking region.
 
 ### 3. Environment Quality Score (EQS)
-Bengaluru traffic cameras deal with monsoon rains, severe night glare, and motion blur. 
+Bengaluru traffic cameras deal with monsoon rains, severe night glare, and motion blur.
 Before HawkEye evaluates an image, the EQS module calculates the Variance of the Laplacian (blur) and HSV Intensity (brightness/glare). If `EQS < 40`, the frame is rejected to a `MANUAL_REVIEW` queue, protecting citizens from erroneous auto-generated fines due to bad camera conditions.
 
-### 4. Advanced Image Preprocessing
-Before feeding images to YOLO and PaddleOCR, HawkEye runs preprocessing to rescue sub-optimal evidence:
-- **Adaptive Histogram Equalization (CLAHE)**: Enhances contrast specifically for low-light or washed-out images.
-- **Unsharp Masking**: Reduces motion blur common in fast-moving highway vehicles.
+### 4. Advanced OCR Image Preprocessing
+Before feeding images to PaddleOCR / EasyOCR, HawkEye rescues sub-optimal evidence:
+- **YOLO Targeted Cropping**: License plates are precisely cropped using YOLO bounding boxes with an added 5px mathematical margin.
+- **Grayscale Conversion**: Crops are converted to grayscale to maximize OCR contrast and eliminate hallucinations.
 
 ---
 
@@ -49,42 +49,30 @@ HawkEye is built for enterprise-grade scalability, completely containerized with
 ## 🚀 How to Run Locally
 
 ### Prerequisites
-- Docker & Docker Compose
-- (Optional) NVIDIA GPU for hardware-accelerated YOLO and PaddleOCR inference.
+- Docker Desktop installed and running.
+- (Optional) NVIDIA GPU for hardware-accelerated YOLO and OCR inference.
 
 ### Quick Start
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/your-repo/hawkeye-traffic-ai.git
-   cd hawkeye-traffic-ai
-   ```
+1. **Unzip / Clone the Repository:**
+   Ensure you are in the root directory `HawkEye-Traffic-AI/`.
 
 2. **Spin up the entire microservice ecosystem:**
+   Open a terminal and run:
    ```bash
-   docker compose up --build
+   docker-compose up --build -d
    ```
+   *Note: The first launch will download Python images and PyTorch model weights.*
 
 3. **Access the Application:**
    - **Command Center Dashboard**: [http://localhost:8501](http://localhost:8501)
    - **FastAPI Swagger Docs**: [http://localhost:8000/docs](http://localhost:8000/docs)
 
 ### Usage Instructions
-1. Open the Dashboard.
+1. Open the Dashboard at `http://localhost:8501`.
 2. Navigate to the **Live Intersection Feed**.
 3. Upload a single image, or multiple sequential images (an Evidence Burst).
 4. Watch as SEVE calculates the Environment Quality, identifies license plates via OCR, tracks motion trajectories, and generates the final bounding-box evidence image highlighting only valid violations.
 
 ---
 
-## 📈 Evaluation & Custom Training
-
-To evaluate the system against a custom labeled dataset (calculating mAP, Precision, and Recall):
-```bash
-python training/evaluate_metrics.py
-```
-
-HawkEye supports automatic YOLO dataset preparation and model finetuning for specific cities.
-
----
-*Developed for the Gridlock Hackathon 2.0*

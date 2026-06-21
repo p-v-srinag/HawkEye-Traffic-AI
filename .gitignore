@@ -1,17 +1,28 @@
 __pycache__/
-
 *.pyc
-
 .env
-
 .venv/
+venv/
+env/
+.env/
 
+# Ignore data contents but keep the directories
 data/uploads/*
-data/evidence/*
+!data/uploads/.gitkeep
+data/results/*
+!data/results/.gitkeep
 
 weights/*.pt
+!weights/.gitkeep
+
+# Ignore datasets if they are large, but keep the folder structure
+datasets/traffic/images/*
+!datasets/traffic/images/.gitkeep
+datasets/traffic/labels/*
+!datasets/traffic/labels/.gitkeep
 
 .streamlit/
-
 .idea/
 .vscode/
+*.zip
+*.log
