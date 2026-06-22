@@ -1,4 +1,4 @@
-# 🚔 HawkEye Traffic AI
+# HawkEye Traffic AI
 
 ![Gridlock Hackathon](https://img.shields.io/badge/Gridlock%20Hackathon%202.0-Submission-blue?style=for-the-badge)
 ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
@@ -11,7 +11,7 @@ An advanced, highly scalable Computer Vision pipeline developed for the **Gridlo
 
 ---
 
-## 🌟 Key Features & Architectural Edge
+## Key Features & Architectural Edge
 
 ### 1. Smart Enforcement Validation Engine (SEVE)
 Most YOLO implementations fail in the real world because they lack context. SEVE introduces "human-like" contextual validation to dramatically reduce false-positive challans:
@@ -35,7 +35,7 @@ Before feeding images to PaddleOCR / EasyOCR, HawkEye rescues sub-optimal eviden
 
 ---
 
-## 🏗️ System Architecture
+## System Architecture
 
 HawkEye is built for enterprise-grade scalability, completely containerized with Docker.
 
@@ -46,7 +46,7 @@ HawkEye is built for enterprise-grade scalability, completely containerized with
 
 ---
 
-## 🚀 How to Run Locally
+## How to Run Locally
 
 ### Prerequisites
 - Docker Desktop installed and running.
@@ -76,5 +76,5 @@ HawkEye is built for enterprise-grade scalability, completely containerized with
 
 ---
 
-## 📝 License
+## License
 Created exclusively for the Flipkart Gridlock Hackathon 2.0.
